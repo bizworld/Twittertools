@@ -67,6 +67,7 @@ require_once("lib/OAuth.php");
 			<p><strong>DMs</strong> <a href="examples/dms.php">Click here to view your DMs.</a></p>
 			<p><strong>Followers</strong> <a href="examples/followers.php">Click here to view your followers or any twitter user followers.</a></p>
 			<p><strong>Friends</strong> <a href="examples/friends.php">Click here to view your friends or any twitter user friends.</a></p>
+			<p><strong>Search</strong> <a href="examples/search.php">Click here to search on Twitter.</a></p>
 			</div>
 </body>
 </html>
