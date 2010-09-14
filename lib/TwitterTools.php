@@ -39,7 +39,7 @@ class TwitterTools{
 	function checkState()
 	{
 		
-		if(isset($_SESSION['oauth_state']) && !empty($this->atoken))
+		if(isset($_SESSION['oauth_state']) && !empty($this->atoken_secret))
 			$state = $_SESSION['oauth_state'] = "logged";
 		elseif($_REQUEST['oauth_token'] != NULL && $_SESSION['oauth_state'] === 'start') 
 			$state = $_SESSION['oauth_state'] = "returned";
@@ -189,6 +189,16 @@ class TwitterTools{
 		{
 			$all = simplexml_load_string($ret);
 			return $all->users->user;
+		}
+	}
+	
+	function search($query,$limit=30)
+	{	
+		$ret = $this->makeRequest('http://search.twitter.com/search.json',array("show_user"=>"true","q"=>$query));
+		if($ret)
+		{			
+			$all = json_decode($ret,true);
+			return $all['results'];
 		}
 	}
 	

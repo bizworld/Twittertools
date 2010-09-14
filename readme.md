@@ -19,6 +19,7 @@ Follow the TwitterTools repository at GitHub and stay updated about new function
 <li>Get user's followers (from any twitter account)</li>
 <li>Get user's friends (from any twitter account)</li>
 <li>Make authenticated user follows another twitter user</li>
+<li>Search Twitter</li>
 <li>Easily make any requests to twitter api</li>
 </ul>
 

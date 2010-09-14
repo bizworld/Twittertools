@@ -17,7 +17,7 @@ if(isset($_GET['logout']))
 <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<h2>Twitter Tools Demo - Mentions</h2>
+<h2>Twitter Tools Demo - Search</h2>
 <a href="../index.php">Back</a>
 <?php
 require_once("../lib/TwitterTools.php");
@@ -54,35 +54,44 @@ require_once("../lib/OAuth.php");
 <?
 	}//switch
 
-
+?>
+<h4>Search Twitter</h4>
+<form method="get">
+<p><input type="text" name="q" /> <input type="submit" value="Search" /?></p>
+</form>
+<?
 
 if($tw->logged())
 {
-	$tweets = $tw->getMentions(15);
-	if($tweets)
+	if(isset($_GET['q']))
 	{
-	?>
-	<div class="box">
-	<h4>Your Mentions (@'s) (15 latest)</h4>
-	<?
-		foreach($tweets as $tweet)
+		$tweets = $tw->search($_GET['q']);
+	
+		if($tweets)
 		{
-			$dt = new DateTime($tweet->created_at);
-			?>
-			<div class="tweet">
-			<img src="<?=$tweet->user->profile_image_url?>" style="float:left;margin:5px;"/> <strong><?=$tweet->user->screen_name?></strong> <?=utf8_decode($tweet->text)?><br/>
-			<small><?=$tweet->created_at?></small>
-			<br clear="all"/>
-			</div>
-			<br clear="all"/>
-			<?
-		}	
-	?>
-	</div>
-	<?
-	}
-	else
-		echo "an error ocurred.";
+		?>
+		<div class="box">
+		<h4>Search Results (30 latest)</h4>
+		<?
+			foreach($tweets as $tweet)
+			{
+				
+				?>
+				<div class="tweet">
+				<a href="http://twitter.com/<?=$tweet['from_user']?>"><img src="<?=$tweet['profile_image_url']?>" style="float:left;margin:5px;" width="48" height="48"/></a> <strong><?=$tweet['from_user']?></strong> <?=utf8_decode($tweet['text'])?><br/>
+				<small><?=$tweet['created_at']?></small>
+				<br clear="all"/>
+				</div>
+				<br clear="all"/>
+				<?
+			}	
+		?>
+		</div>
+		<?
+		}
+		else
+			echo "an error ocurred.";
+	}		
 }
 
 ?>

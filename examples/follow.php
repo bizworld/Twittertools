@@ -1,5 +1,6 @@
 <?php
 //essencial!
+session_name("TTDemo");
 session_start();
 
 if(isset($_GET['logout']))

@@ -1,6 +1,5 @@
 <?php
 //essencial!
-session_name("TTDemo");
 session_start();
 
 if(isset($_GET['logout']))
@@ -17,7 +16,7 @@ if(isset($_GET['logout']))
 <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<h2>Twitter Tools Demo - Mentions</h2>
+<h2>Twitter Tools Demo - Retweets</h2>
 <a href="../index.php">Back</a>
 <?php
 require_once("../lib/TwitterTools.php");
@@ -58,16 +57,16 @@ require_once("../lib/OAuth.php");
 
 if($tw->logged())
 {
-	$tweets = $tw->getMentions(15);
+	$tweets = $tw->getRetweets(15);
 	if($tweets)
 	{
 	?>
 	<div class="box">
-	<h4>Your Mentions (@'s) (15 latest)</h4>
+	<h4>Users retweeted you:</h4>
 	<?
 		foreach($tweets as $tweet)
 		{
-			$dt = new DateTime($tweet->created_at);
+
 			?>
 			<div class="tweet">
 			<img src="<?=$tweet->user->profile_image_url?>" style="float:left;margin:5px;"/> <strong><?=$tweet->user->screen_name?></strong> <?=utf8_decode($tweet->text)?><br/>
