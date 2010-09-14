@@ -17,10 +17,13 @@ Follow the TwitterTools repository at GitHub and stay updated about new function
 <li>Get user's mentions (from authenticated user)</li>
 <li>Get user's direct messages (from authenticated user)</li>
 <li>Get user's followers (from any twitter account)</li>
-<li>Make authenticated user follow any twitter account</li>
+<li>Get user's friends (from any twitter account)</li>
+<li>Make authenticated user follows another twitter user</li>
 <li>Easily make any requests to twitter api</li>
 </ul>
 
 <p>You can test Twittertools on its Live Demo page: <a href="http://erikafocke.com.br/demos/twittertools">http://erikafocke.com.br/demos/twittertools</a></p>
+
+<p>Another fully funcional and downloadable example is here: <a href="http://erikafocke.com.br/demos/happyelephant">The Happy Elephant</a></p>
 
 <p>For more info, api reference and usage instructions, see <a href="http://wiki.github.com/erikaheidi/Twittertools/">our Wiki</a>.</p>

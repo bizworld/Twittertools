@@ -16,7 +16,7 @@ if(isset($_GET['logout']))
 <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<h2>Twitter Tools Demo - Followers</h2>
+<h2>Twitter Tools Demo - Friends</h2>
 <a href="../index.php">Back</a>
 <?php
 require_once("../lib/TwitterTools.php");
@@ -63,14 +63,14 @@ if($tw->logged())
 	else
 		$user = $credentials->screen_name;
 		
-	$tweets = $tw->getFollowers($user);
+	$tweets = $tw->getFriends($user);
 	if($tweets)
 	{
 	?>
 	<div class="box">
-	<h4><?=$user?>'s Followers (100 latest)</h4>
-	<form><p>Show followers from another user: <input type="text" name="user" /><input type="submit" value="Show"/></p></form>
-		<?
+	<h4><?=$user?>'s Friends (100 latest)</h4>
+	<form><p>Show friends from another user: <input type="text" name="user" /><input type="submit" value="Show"/></p></form>
+	<?
 		foreach($tweets as $tweet)
 		{
 			
@@ -82,9 +82,8 @@ if($tw->logged())
 			</div>
 			<br clear="all"/>
 			<?
-		}	
+		}
 	?>
-
 	</div>
 	<?
 	}

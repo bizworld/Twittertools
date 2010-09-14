@@ -144,6 +144,17 @@ class TwitterTools{
 		}
 	}
 	
+	function getRetweets($limit=10)
+	{	
+		$ret = $this->makeRequest('http://api.twitter.com/1/statuses/retweets_of_me.xml',array("include_entities"=>"true","count"=>$limit));
+		if($ret)
+		{			
+			$all = simplexml_load_string($ret);
+			print_r($all);
+			return $all->status;
+		}
+	}
+	
 	function getDms($limit=10)
 	{
 
@@ -154,30 +165,31 @@ class TwitterTools{
 			return $all->direct_message;
 		}
 	}
-		
-	function getFollowers($screen_name,$limit=10)
+	
+	function getFollowers($screen_name,$cursor=0)
 	{
-	
-		$result = $this->makeRequest('http://api.twitter.com/1/followers/ids.xml',array("screen_name"=>$screen_name,"cursor"=>"-1"));
-		
-		$ids = simplexml_load_string($result);
-	
-		$c=0;
-		foreach($ids->ids->id as $id)
-		{
-			if(!$c)
-				$lista = $id;
-			else
-				$lista .= ",".$id;
+		if(!$cursor)
+			$cursor = "-1";
 			
-			$c++;
-			if($c == $limit)
-				break;
+		$ret= $this->makeRequest('http://api.twitter.com/1/statuses/followers.xml',array("screen_name"=>$screen_name,"cursor"=>$cursor));		
+		if($ret)
+		{
+			$all = simplexml_load_string($ret);
+			return $all->users->user;
 		}
+	}
 		
-		
-		return $this->getUsersInfo($lista); 
-		
+	function getFriends($screen_name,$cursor=0)
+	{
+		if(!$cursor)
+			$cursor = "-1";
+			
+		$ret= $this->makeRequest('http://api.twitter.com/1/statuses/friends.xml',array("screen_name"=>$screen_name,"cursor"=>$cursor));		
+		if($ret)
+		{
+			$all = simplexml_load_string($ret);
+			return $all->users->user;
+		}
 	}
 	
 	function getUsersInfo($lista_users)
