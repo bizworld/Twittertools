@@ -14,6 +14,8 @@ Follow the TwitterTools repository at GitHub and stay updated about new function
 <li>Auth a twitter user and obtain his access tokens</li>
 <li>Post to twitter user account using an automatic url shortner (from Bit.ly)</li>
 <li>Get user's timeline (from authenticated user)</li>
+<li>Retweet a tweet</li>
+<li>Favorite / Unfavorite a tweet</li>
 <li>Get user's mentions (from authenticated user)</li>
 <li>Get user's direct messages (from authenticated user)</li>
 <li>Get user's followers (from any twitter account)</li>

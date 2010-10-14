@@ -26,37 +26,28 @@ require_once("../lib/OAuth.php");
 	/* consumer key & consumer secret - register an app to get yours at:
 	 * http://dev.twitter.com/apps/new
 	 */
-	$consumer_key = "vWJfl9R2BrOcYiS1sLK2A";
-	$consumer_secret = "AfWYuCgPtpt4HK82djgZbukmjbSIPQ49Yqvvzkpw";
+	$consumer_key = "lgeljXiueyOLElkT4reEwA";
+	$consumer_secret = "SkppBLCv652ycImVRnojAKwyy2rJj1gnqGgo4hBtfI";
 	
 	$tw = new TwitterTools($consumer_key,$consumer_secret);
-	$state = $tw->checkState();
-	switch($state)
-	{
-		case "start":
-			
-			$request_link = $tw->getAuthLink();
-			echo '<h3>Sign in with your twitter account</h3>';
-			echo '<p><a href="'.$request_link.'" title="sign in with your twitter account"><img src="../img/sign-in-with-twitter-d.png" /></a></p>';
-			
-			break;
 
-		case "returned":
-			$tw->getAccessToken();
 
-		case "logged":
-
-			$credentials = $tw->getCredentials();
-			
-			?>
-			<p>You are logged in as: <strong><?=$credentials->screen_name?></strong> [ <a href="./?logout=1">LOGOUT</a> ]</p>
-
+	if(!$tw->state)
+	{		
+		$request_link = $tw->getAuthLink();
+		echo '<h3>Sign in with your twitter account</h3>';
+		echo '<p><a href="'.$request_link.'" title="sign in with your twitter account"><img src="img/sign-in-with-twitter-d.png" /></a></p>';
+	} 
+	else 
+	{	
+		$credentials = $tw->getCredentials();
+		
+		?>
+		<p>You are logged in as: <strong><?=$credentials->screen_name?></strong> [ <a href="./?logout=1">LOGOUT</a> ]</p>	
 <?
-	}//switch
+	}//else
 
-
-
-if($tw->logged())
+if($tw->state)
 {
 	$tweets = $tw->getMentions(15);
 	if($tweets)

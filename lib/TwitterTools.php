@@ -1,7 +1,7 @@
 <?php
 /* ***************************************************************
  * TwitterTools 
- * v. 2.0 - 22/10/2010
+ * v. 2.1 - 14/10/2010
  * by @erikaheidi
  * http://www.erikafocke.com.br/twittertools
  *****************************************************************/
@@ -18,8 +18,13 @@ class TwitterTools{
 	var $consumer_key;
 	var	$consumer_secret;
 
-	var $access_token;
-	var $access_secret;
+	var $atoken;
+	var $atoken_secret;
+	
+	var $rtoken;
+	var $rtoken_secret;
+	
+	var $state;
 	
 	/* __construct
 	 * $consumer_key = twitter app consumer key
@@ -29,22 +34,69 @@ class TwitterTools{
 	{
 		$this->consumer_key = $consumer_key;
 		$this->consumer_secret = $consumer_secret;
+		$this->state = 0;
 		
-		/* if registered, get user tokens from session*/
-		$this->atoken =  $_SESSION['oauth_access_token'];
-		$this->atoken_secret =  $_SESSION['oauth_access_token_secret'];
+		$tokens = unserialize($_SESSION['tokens']);
+		$tokens_secrets = unserialize($_SESSION['tokens_secrets']);
+		
+		if(!empty($_SESSION['oauth_access_token']))
+		{
+			//logged
+			$this->state = 2;
+			$this->atoken =  $_SESSION['oauth_access_token'];
+			$this->atoken_secret =  $_SESSION['oauth_access_token_secret'];
+		}
+		else
+		{
+			
+			if(!empty($_REQUEST['oauth_token']))
+			{
+				$key = array_search($_REQUEST['oauth_token'],$tokens);
+				
+				if($key !== false)
+				{
+					$this->rtoken = $_REQUEST['oauth_token'];
+					$this->rtoken_secret = $tokens_secrets[$key];
+				
+					if(!$this->state)
+					{
+						//returned
+						$this->state = 1;
+						$this->getAccessToken();
+					}
+				}
+				
+			}
+			else
+			{
+
+					
+					$to = new TwitterOAuth($this->consumer_key, $this->consumer_secret);
+					$tok = $to->getRequestToken();
+					$this->rtoken = $rtoken = $tok['oauth_token'];
+					$this->rtoken_secret = $rtoken_secret = $tok['oauth_token_secret'];
+					
+					$tokens[] = $rtoken;
+					$tokens_secrets[] = $rtoken_secret;
+					
+					$_SESSION['tokens'] = serialize($tokens);
+					$_SESSION['tokens_secrets'] = serialize($tokens_secrets);
+
+			}
+		
+		}
+		
+
 	}
 	
-	
+	// for compatibility with old version (deprecated method)
 	function checkState()
 	{
-		
-		if(isset($_SESSION['oauth_state']) && !empty($this->atoken_secret))
-			$state = $_SESSION['oauth_state'] = "logged";
-		elseif($_REQUEST['oauth_token'] != NULL && $_SESSION['oauth_state'] === 'start') 
-			$state = $_SESSION['oauth_state'] = "returned";
-		else
-			$state = $_SESSION['oauth_state'] = "start";
+		$state = 'start';
+		if($state == 1)
+			$state = 'returned';
+		elseif($state == 2)
+			$state = 'logged';
 			
 		return $state;
 	}
@@ -52,19 +104,13 @@ class TwitterTools{
 	function getAuthLink()
 	{
 		$to = new TwitterOAuth($this->consumer_key, $this->consumer_secret);
-		$tok = $to->getRequestToken();
-
-		$_SESSION['oauth_request_token'] = $token = $tok['oauth_token'];
-		$_SESSION['oauth_request_token_secret'] = $tok['oauth_token_secret'];
-
-		return $to->getAuthorizeURL($token);
+		return $to->getAuthorizeURL($this->rtoken);
 	}
 	
 	function getAccessToken()
 	{
-		$to = new TwitterOAuth($this->consumer_key, $this->consumer_secret, $_SESSION['oauth_request_token'], $_SESSION['oauth_request_token_secret']);			 
+		$to = new TwitterOAuth($this->consumer_key, $this->consumer_secret, $this->rtoken, $this->rtoken_secret);			 
 		$tok = $to->getAccessToken();
-
 		$_SESSION['oauth_access_token'] = $this->atoken = $tok['oauth_token'];
 		$_SESSION['oauth_access_token_secret'] = $this->atoken_secret = $tok['oauth_token_secret'];
 	}
@@ -74,7 +120,7 @@ class TwitterTools{
 	 */ 
 	function logged()
 	{
-		return !empty($this->atoken);
+		return $this->state;
 	}
 	
 	/*
@@ -88,7 +134,7 @@ class TwitterTools{
 			return simplexml_load_string($user);
 	}
 
-	function sendWithOAuth($msg)
+	function sendWithOAuth($msg,$replyto=NULL)
 	{		
 		$message= strip_tags($msg);
 		
@@ -104,7 +150,17 @@ class TwitterTools{
 		$message = substr($message,0,140);
 			
 		
-		return $this->makeRequest('http://api.twitter.com/statuses/update.xml', array('status' => $message), 'POST');
+		return $this->makeRequest('http://api.twitter.com/statuses/update.xml', array('status' => $message, 'in_reply_to_status_id' => $replyto), 'POST');
+	}
+	
+	function RT($id)
+	{				
+		return $this->makeRequest('http://api.twitter.com/statuses/retweet/' . $id . '.xml',  null, 'POST');
+	}
+	
+	function favorite($id, $action = 'create')
+	{				
+		return $this->makeRequest('http://api.twitter.com/favorites/'. $action .'/' . $id . '.xml', null, 'POST');
 	}
 	
 	
@@ -116,7 +172,11 @@ class TwitterTools{
 		$url = "http://api.bit.ly/shorten?version=2.0.1&longUrl=$longurl&login=$login&apiKey=$apiKey&format=json&history=1";
 		$result = file_get_contents($url);
 		$obj = json_decode($result, true);
-		return $obj ["results"] ["$longurl"] ["shortUrl"];
+		$link = $obj ["results"] ["$longurl"] ["shortUrl"];
+		if(empty($link))
+			return $longurl;
+		else
+			return $link;
 	}
 
 	function follow($to)

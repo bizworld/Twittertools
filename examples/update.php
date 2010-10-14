@@ -24,51 +24,39 @@ require_once("../lib/OAuth.php");
 	/* consumer key & consumer secret - register an app to get yours at:
 	 * http://dev.twitter.com/apps/new
 	 */
-	$consumer_key = "vWJfl9R2BrOcYiS1sLK2A";
-	$consumer_secret = "AfWYuCgPtpt4HK82djgZbukmjbSIPQ49Yqvvzkpw";
+	$consumer_key = "lgeljXiueyOLElkT4reEwA";
+	$consumer_secret = "SkppBLCv652ycImVRnojAKwyy2rJj1gnqGgo4hBtfI";
 	
 	$tw = new TwitterTools($consumer_key,$consumer_secret);
-	$state = $tw->checkState();
-	/*
-	 * possible states:
-	 * start - not authenticated, first access
-	 * returned - user just authorized your app and returned
-	 * logged - user are logged in
-	 */ 
-	switch($state)
-	{
-		case "start":
-			
-			$request_link = $tw->getAuthLink();
-			echo '<h3>Sign in with your twitter account</h3>';
-			echo '<p><a href="'.$request_link.'" title="sign in with your twitter account"><img src="../img/sign-in-with-twitter-d.png" /></a></p>';
-			
-			break;
 
-		case "returned":
-			$tw->getAccessToken();
 
-		case "logged":
-
-			$credentials = $tw->getCredentials();
+	if(!$tw->state)
+	{		
+		$request_link = $tw->getAuthLink();
+		echo '<h3>Sign in with your twitter account</h3>';
+		echo '<p><a href="'.$request_link.'" title="sign in with your twitter account"><img src="img/sign-in-with-twitter-d.png" /></a></p>';
+	} 
+	else 
+	{	
+		$credentials = $tw->getCredentials();
 			
-			?>
-			<p>You are logged in as: <strong><?=$credentials->screen_name?></strong> [ <a href="./?logout=1">LOGOUT</a> ]</p>
-			<div class="box">
-			<h3>POST Test</h3>
-			<form method="post">
-			<textarea name="newstatus" cols="60" rows="3">Post test using TwitterTools from @erikaheidi. Download/info here: http://github.com/erikaheidi/Twittertools</textarea><br/>
-			<input type="submit" name="submit" value="Postar no Twitter"/>
-			</form>
-			</div>
-			
-			<div class="box">
-			<h3>More examples / Tests</h3>
-			<p><strong>Timeline</strong> <a href="timeline.php">Click here to view your timelime.</a></p>
-			<p><strong>Mentions</strong> <a href="mentions.php">Click here to view your mentions (@'s).</a></p>
-			<p><strong>DMs</strong> <a href="dms.php">Click here to view your DMs.</a></p>
-			<p><strong>Followers</strong> <a href="followers.php">Click here to view your followers or any user followers.</a></p>
-			</div>
+?>
+		<p>You are logged in as: <strong><?=$credentials->screen_name?></strong> [ <a href="./?logout=1">LOGOUT</a> ]</p>
+		<div class="box">
+		<h3>POST Test</h3>
+		<form method="post">
+		<textarea name="newstatus" cols="60" rows="3">Post test using TwitterTools from @erikaheidi. Download/info here: http://github.com/erikaheidi/Twittertools</textarea><br/>
+		<input type="submit" name="submit" value="Postar no Twitter"/>
+		</form>
+		</div>
+		
+		<div class="box">
+		<h3>More examples / Tests</h3>
+		<p><strong>Timeline</strong> <a href="timeline.php">Click here to view your timelime.</a></p>
+		<p><strong>Mentions</strong> <a href="mentions.php">Click here to view your mentions (@'s).</a></p>
+		<p><strong>DMs</strong> <a href="dms.php">Click here to view your DMs.</a></p>
+		<p><strong>Followers</strong> <a href="followers.php">Click here to view your followers or any user followers.</a></p>
+		</div>
 <?
 	}//switch
 
