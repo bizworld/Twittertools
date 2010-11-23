@@ -2,8 +2,8 @@
 
 <p>TwitterTools is a PHP library that provides an easy way to integrate your site with <strong>Twitter</strong>, using OAuth. With Twittertools you can authenticate twitter users and perform operations such as obtaining his timeline, followers, mentions, direct messages, follow other users and more.</p>
 
-
-<p>created by @erikaheidi - <a href="http://www.erikafocke.com.br">www.erikafocke.com.br</a><br/>
+<p>Official page (with pt-BR documentation): <a href="http://twittertools.in">http://twittertools.in</a>
+<p>created by <a href="http://twitter.com/erikaheidi">@erikaheidi</a> - <a href="http://erikah.in">erikah.in</a><br/>
 GitHub Project Page: <a href="http://github.com/erikaheidi/Twittertools/">http://github.com/erikaheidi/Twittertools</a><br/>
 Follow the TwitterTools repository at GitHub and stay updated about new functionalities.
 </p>
@@ -25,8 +25,8 @@ Follow the TwitterTools repository at GitHub and stay updated about new function
 <li>Easily make any requests to twitter api</li>
 </ul>
 
-<p>You can test Twittertools on its Live Demo page: <a href="http://erikafocke.com.br/demos/twittertools">http://erikafocke.com.br/demos/twittertools</a></p>
+<p>You can test Twittertools on its Live Demo page: <a href="http://twittertools.in/demos/twittertools">http://twittertools.in/demos/twittertools</a></p>
 
-<p>Another fully funcional and downloadable example is here: <a href="http://erikafocke.com.br/demos/happyelephant">The Happy Elephant</a></p>
+<p>Another fully funcional and downloadable example is here: <a href="http://twittertools.in/demos/happyelephant">The Happy Elephant</a></p>
 
 <p>For more info, api reference and usage instructions, see <a href="http://wiki.github.com/erikaheidi/Twittertools/">our Wiki</a>.</p>

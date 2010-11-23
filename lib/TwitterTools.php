@@ -30,47 +30,51 @@ class TwitterTools{
 	 * $consumer_key = twitter app consumer key
 	 * $consumer_secret = twitter app consumer secret
 	 */
-	function __construct($consumer_key,$consumer_secret)
+	function __construct($consumer_key,$consumer_secret,$atoken=0,$atoken_secret=0)
 	{
 		$this->consumer_key = $consumer_key;
 		$this->consumer_secret = $consumer_secret;
 		$this->state = 0;
 		
-		$tokens = unserialize($_SESSION['tokens']);
-		$tokens_secrets = unserialize($_SESSION['tokens_secrets']);
-		
-		if(!empty($_SESSION['oauth_access_token']))
+		if($atoken AND $atoken_secret)
 		{
-			//logged
-			$this->state = 2;
-			$this->atoken =  $_SESSION['oauth_access_token'];
-			$this->atoken_secret =  $_SESSION['oauth_access_token_secret'];
+			$this->atoken = $atoken;
+			$this->atoken_secret = $atoken_secret;
 		}
 		else
 		{
+			$tokens = unserialize($_SESSION['tokens']);
+			$tokens_secrets = unserialize($_SESSION['tokens_secrets']);
 			
-			if(!empty($_REQUEST['oauth_token']))
+			if(!empty($_SESSION['oauth_access_token']))
 			{
-				$key = array_search($_REQUEST['oauth_token'],$tokens);
-				
-				if($key !== false)
-				{
-					$this->rtoken = $_REQUEST['oauth_token'];
-					$this->rtoken_secret = $tokens_secrets[$key];
-				
-					if(!$this->state)
-					{
-						//returned
-						$this->state = 1;
-						$this->getAccessToken();
-					}
-				}
-				
+				//logged
+				$this->state = 2;
+				$this->atoken =  $_SESSION['oauth_access_token'];
+				$this->atoken_secret =  $_SESSION['oauth_access_token_secret'];
 			}
 			else
-			{
-
+			{			
+				if(!empty($_REQUEST['oauth_token']))
+				{
+					$key = array_search($_REQUEST['oauth_token'],$tokens);
 					
+					if($key !== false)
+					{
+						$this->rtoken = $_REQUEST['oauth_token'];
+						$this->rtoken_secret = $tokens_secrets[$key];
+					
+						if(!$this->state)
+						{
+							//returned
+							$this->state = 1;
+							$this->getAccessToken();
+						}
+					}
+					
+				}
+				else
+				{					
 					$to = new TwitterOAuth($this->consumer_key, $this->consumer_secret);
 					$tok = $to->getRequestToken();
 					$this->rtoken = $rtoken = $tok['oauth_token'];
@@ -81,12 +85,11 @@ class TwitterTools{
 					
 					$_SESSION['tokens'] = serialize($tokens);
 					$_SESSION['tokens_secrets'] = serialize($tokens_secrets);
-
+				}
+			
 			}
-		
+			
 		}
-		
-
 	}
 	
 	// for compatibility with old version (deprecated method)
