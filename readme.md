@@ -1,32 +1,22 @@
 <h1>TwitterTools</h1>
 
-<p>TwitterTools is a PHP library that provides an easy way to integrate your site with <strong>Twitter</strong>, using OAuth. With Twittertools you can authenticate twitter users and perform operations such as obtaining his timeline, followers, mentions, direct messages, follow other users and more.</p>
+TwitterTools é uma biblioteca Open Source PHP que provê uma forma bastante simplificada de criar aplicações em PHP para o Twitter. Com ela, é possível criar desde projetos complexos como o <a title="TweetAuditor - Ferramenta de monitoramento para o Twitter" href="http://tweetauditor.in">TweetAuditor</a> ou simples robôs de ação automatizada como o <a href="http://twittertools.in/2011/07/21/novo-demo-oraculo-de-zoltar/">Oráculo de Zoltar</a>. Veja mais exemplos na página de DEMOS.
 
-<p>Official page (with pt-BR documentation): <a href="http://twittertools.in">http://twittertools.in</a>
-<p>created by <a href="http://twitter.com/erikaheidi">@erikaheidi</a> - <a href="http://erikah.in">erikah.in</a><br/>
-GitHub Project Page: <a href="http://github.com/erikaheidi/Twittertools/">http://github.com/erikaheidi/Twittertools</a><br/>
-Follow the TwitterTools repository at GitHub and stay updated about new functionalities.
-</p>
-
-<strong>With Twittertools you can:</strong>
-
+A classe TwitterTools já vem pronta para:
 <ul>
-<li>Auth a twitter user and obtain his access tokens</li>
-<li>Post to twitter user account using an automatic url shortner (from Bit.ly)</li>
-<li>Get user's timeline (from authenticated user)</li>
-<li>Retweet a tweet</li>
-<li>Favorite / Unfavorite a tweet</li>
-<li>Get user's mentions (from authenticated user)</li>
-<li>Get user's direct messages (from authenticated user)</li>
-<li>Get user's followers (from any twitter account)</li>
-<li>Get user's friends (from any twitter account)</li>
-<li>Make authenticated user follows another twitter user</li>
-<li>Search Twitter</li>
-<li>Easily make any requests to twitter api</li>
+	<li>Autenticar o usuário e obter suas chaves de acesso</li>
+	<li>Postar no Twitter, encurtar urls e postar imagens no TwitPic</li>
+	<li>Buscar no Twitter</li>
+	<li>Obter TimeLine, Mentions, DM's, seguidores, amigos, retweets e favoritos do usuário autenticado</li>
+	<li>Seguir, dar unfollow, verificar se um usuário segue outro</li>
+	<li>Fazer requisições através de um método genérico</li>
 </ul>
-
-<p>You can test Twittertools on its Live Demo page: <a href="http://twittertools.in/demos/twittertools">http://twittertools.in/demos/twittertools</a></p>
-
-<p>Another fully funcional and downloadable example is here: <a href="http://twittertools.in/demos/happyelephant">The Happy Elephant</a></p>
-
-<p>For more info, api reference and usage instructions, see <a href="http://wiki.github.com/erikaheidi/Twittertools/">our Wiki</a>.</p>
+<h3>Links Rápidos</h3>
+<div>
+<ul>
+	<li><a title="Primeiros Passos" href="http://twittertools.in/primeiros-passos/">Primeiros Passos</a></li>
+	<li><a title="Registrando uma app no Twitter" href="http://twittertools.in/primeiros-passos/register-twitter-app/">Registrando uma aplicação no Twitter</a></li>
+	<li><a title="Exemplos / Demos" href="http://twittertools.in/exemplos/">Exemplos</a> e Demos</li>
+	<li><a title="Playground" href="http://twittertools.in/demos/v3/playground.php">Retornos das Funções</a></li>
+</ul>
+</div>
