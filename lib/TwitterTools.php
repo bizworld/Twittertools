@@ -355,7 +355,7 @@ class TwitterTools{
 	}
 	
 	//twitpic
-	function postTwitPic($_FILES,$legenda="Posted with TwitterTools")
+	function postTwitPic($FILE,$legenda="Posted with TwitterTools")
 	{
 		$post_url='http://api.twitpic.com/2/upload.json';
 		
@@ -366,7 +366,7 @@ class TwitterTools{
 		'X-Verify-Credentials-Authorization: OAuth realm="http://api.twitter.com/"');
 		
 		 // instantiating OAuth customer
-		 $consumer = new OAuthConsumer(CSKEY,CSSECRET);
+		 $consumer = new OAuthConsumer($this->consumer_key,$this->consumer_secret);
 		 
 		 // instantiating signer
 		 $sha1_method = new OAuthSignatureMethod_HMAC_SHA1();
@@ -382,7 +382,7 @@ class TwitterTools{
 		 $request->sign_request($sha1_method, $consumer, $token);
 		
 		
-		$header[1] .= ", oauth_consumer_key=\"".CSKEY."\"";
+		$header[1] .= ", oauth_consumer_key=\"".$this->consumer_key."\"";
 		$header[1] .= ", oauth_signature_method=\"" . $request->get_parameter('oauth_signature_method') ."\"";
 		$header[1] .= ", oauth_token=\"" . $request->get_parameter('oauth_token') ."\"";
 		$header[1] .= ", oauth_timestamp=\"" . $request->get_parameter('oauth_timestamp') ."\"";
@@ -403,7 +403,7 @@ class TwitterTools{
 		curl_setopt($ch,CURLOPT_URL,$post_url);
 
 		$media_data = array(
-		'media' => '@'.$_FILES['photo']['tmp_name'],
+		'media' => '@'.$FILE['tmp_name'],
 		'message' =>$legenda,
 		'key'=>self::$twitpic_apikey
 		);
@@ -435,13 +435,13 @@ class TwitterTools{
 		{
 			$content = "<p>Twitpic upload failed. No idea why!</p>";
 			$json = json_decode($result);
-			$content .= "<br / /><b>message</b> " . urlencode($_POST['message']);
+			$content .= "<br / /><b>message</b> " . urlencode($legenda);
 			$content .= "<br / /><b>json</b> " . print_r($json);
 			$content .= "<br / /><b>Response</b> " . print_r($response_info);
 			$content .= "<br / /><b>header</b> " . print_r($header);
 			$content .= "<br / /><b>media_data</b> " . print_r($media_data);
 			$content .= "<br /><b>URL was</b> " . $twitpicURL;
-			$content .= "<br /><b>File uploaded was</b> " . $_FILES['media']['tmp_name'];
+			$content .= "<br /><b>File uploaded was</b> " . $FILE['tmp_name'];
 			
 			return array("error"=>1,"code"=>$response_info['http_code'],"debug"=>$content);
 		}
