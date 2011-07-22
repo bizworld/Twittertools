@@ -355,7 +355,7 @@ class TwitterTools{
 	}
 	
 	//twitpic
-	function postTwitPic($FILE,$legenda="Posted with TwitterTools")
+	function postTwitPic($FILEPATH,$legenda="Posted with TwitterTools")
 	{
 		$post_url='http://api.twitpic.com/2/upload.json';
 		
@@ -403,7 +403,7 @@ class TwitterTools{
 		curl_setopt($ch,CURLOPT_URL,$post_url);
 
 		$media_data = array(
-		'media' => '@'.$FILE['tmp_name'],
+		'media' => '@'.$FILEPATH,
 		'message' =>$legenda,
 		'key'=>self::$twitpic_apikey
 		);
@@ -441,7 +441,7 @@ class TwitterTools{
 			$content .= "<br / /><b>header</b> " . print_r($header);
 			$content .= "<br / /><b>media_data</b> " . print_r($media_data);
 			$content .= "<br /><b>URL was</b> " . $twitpicURL;
-			$content .= "<br /><b>File uploaded was</b> " . $FILE['tmp_name'];
+			$content .= "<br /><b>File uploaded was</b> " . $FILEPATH;
 			
 			return array("error"=>1,"code"=>$response_info['http_code'],"debug"=>$content);
 		}
