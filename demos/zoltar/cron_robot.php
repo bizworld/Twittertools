@@ -1,17 +1,16 @@
 <?php
-/* mais info: http://twittertools.in/2011/07/21/novo-demo-oraculo-de-zoltar/ */
-/* incluir bibliotecas. atualize com o caminho onde você as salvou. */
-require_once("../v3/lib/TwitterTools.php");
-require_once("../v3/lib/TwitterOAuth.php");
-require_once("../v3/lib/OAuth.php");
+
+require_once("../../lib/TwitterTools.php");
+require_once("../../lib/TwitterOAuth.php");
+require_once("../../lib/OAuth.php");
 
 /* consumer key & consumer secret*/
-$consumer_key = "your_consumer_key";
-$consumer_secret = "your_consumer_secret";
+$consumer_key = "app_consumer_key";
+$consumer_secret = "app_consumer_secret";
 
 /* access token & access token secret from your twitter user */
-$access_token = "your_atoken";
-$access_token_secret = "your_atoken_secret";
+$access_token = "your_access_token";
+$access_token_secret = "your_access_token_secret";
 
 $tw = new TwitterTools($consumer_key,$consumer_secret,$access_token,$access_token_secret);
 
@@ -37,17 +36,16 @@ if(is_file("lastmention.id"))
 
 // obter replies e responder
 
+//$result = $tw->getMentions(10);
 $params['count'] = 10;
 if($last_mention_id)
 	$params['since_id'] = $last_mention_id;
 
-//get only new mentions if they exist
 $result = json_decode($tw->makeRequest('http://api.twitter.com/1/statuses/mentions.json',$params),1);
 
 if($result)
 {
-	/*debug*/
-	/* echo "<pre>";
+	/*echo "<pre>";
 	print_r($result);
 	echo "</pre>";*/
 	foreach($result as $tweet)
