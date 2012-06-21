@@ -1,8 +1,8 @@
 <?php
-//essencial! sessao_start
+//this is mandatory
 session_name("TTPlayground");
 session_start();
-//sessao_start fim
+
 
 if(isset($_GET['logout']))
 	session_unset();
@@ -49,7 +49,7 @@ div.boxRetorno {
 </style>
 </head>
 <body>
-<h2>Twitter Tools - Exemplos de Retorno</h2>
+<h2>Twitter Tools - Return Samples</h2>
 
 <?php
 require_once("lib/TwitterTools.php");
@@ -82,7 +82,7 @@ require_once("lib/OAuth.php");
 	<?
 	}//else	
 ?>
-<p>Clique no método para executá-lo e visualizar seu retorno (você precisa logar no Twitter primeiro).</p>
+<p>Click on the method to check its return (you need to log in first).</p>
 
 
 <ul class="methods">
@@ -114,7 +114,7 @@ require_once("lib/OAuth.php");
 </ul>
 
 <br clear="all"/>
-<p><small>*ao clicar, irá seguir/deixar de seguir o perfil @TToolslib</small><br/><small>**ao clicar, irá tuitar automaticamente a frase: "testing twittertools php lib - http://twittertools.in ."</small></p>
+<p><small>*when clicking, you will follow/unfollow @TToolslib profile</small><br/><small>**when clicking, you will post a tweet like this: "testing twittertools php lib - http://t.co/ovUE5ZXX ."</small></p>
 <?
 		if($logado AND isset($_GET['command']))
 		{
@@ -129,12 +129,12 @@ require_once("lib/OAuth.php");
 					break;
 				
 				case "isFollower":
-					$msg = "Perfil de teste: @erikaheidi. Retorna 1 se você está seguindo @erikaheidi ou 0 caso contrário.";
+					$msg = "Testing Profile: @erikaheidi. Will return 1 if you are following @erikaheidi or 0 if you are not following.";
 					$retorno = $tw->isFollower($credentials['screen_name'],'erikaheidi');
 					break;
 				
 				case "checkConnections":
-					$msg = "Perfis de teste: @erikaheidi e @tweetauditor.";
+					$msg = "Testing Profiles: @erikaheidi (id: 19625601) and @tweetauditor (id:204955540). Response is the connection between logged user (you) and the specified users.";
 					$retorno = $tw->checkConnections("erikaheidi,tweetauditor");
 					break;
 				
@@ -147,16 +147,17 @@ require_once("lib/OAuth.php");
 					break;		
 				
 				case "getUsersInfo":
-					$msg = "Perfis de teste: @erikaheidi e @tweetauditor";
+					$msg = "Testing Profiles: @erikaheidi and @tweetauditor";
 					$retorno = $tw->getUsersInfo('19625601,204955540');
 					break;
 				
 				case "update":
-					$retorno = $tw->update("testing twittertools php lib - http://twittertools.in",0,1);
+					#twitter automatically shorten links with his t.co shortner
+					$retorno = $tw->update("testing twittertools php lib - http://erikaheidi.com/open-source/twittertools");
 					break;
 					
 				case "getTweet":
-					$msg = "Tweet de teste: http://twitter.com/#!/erikaheidi/status/93309305482264576";
+					$msg = "Test Tweet: http://twitter.com/#!/erikaheidi/status/93309305482264576";
 					$retorno = $tw->getTweet('93309305482264576');
 					break;
 					
@@ -181,17 +182,17 @@ require_once("lib/OAuth.php");
 					break;
 				
 				case "getSearch":
-					$msg = "Buscando pelo termo '#soudev'";
-					$retorno = $tw->search("#soudev");
+					$msg = "Searching for the term '#php'";
+					$retorno = $tw->search("#php");
 					break;
 									
 				case "follow":
-					$msg = "Perfil de teste: @TToolslib";
+					$msg = "Testing Profile: @TToolslib";
 					$retorno = $tw->follow('TToolslib');
 					break;
 				
 				case "unfollow":
-					$msg = "Perfil de teste: @TToolslib";
+					$msg = "Testing Profile: @TToolslib";
 					$retorno = $tw->unfollow('TToolslib');
 					break;
 				
@@ -210,7 +211,7 @@ require_once("lib/OAuth.php");
 			
 			}
 			else
-				echo "Retorno vazio ou zero.";
+				echo "Return was empty or equal to zero.";
 			?> 
 			</div>
 <?

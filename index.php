@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>TwitterTools - DEMOS</title>
+<title>TwitterTools</title>
 <style>
 body {
 	font-family: arial;
@@ -40,11 +40,13 @@ div.boxRetorno {
 </style>
 </head>
 <body>
-<h2>Twitter Tools Demos - v3.0</h2>
+<h2>Twittertools</h2>
 
 <ul class="methods">
-	<li><a href="playground.php">Playground - retornos dos métodos</a></li>
-	<li><a href="../zoltar/index.php">Oráculo de Zoltar (aplicação robô)</a></li>
+	<li><a title="First Steps - twitter app development" href="http://erikaheidi.com/open-source/twittertools/first-steps/">First Steps</a> - first things you need to know about twitter app development</li>
+	<li><a title="a really simple app to show the basics and get you started" href="http://erikaheidi.com/open-source/twittertools/hello-twitter-a-twittertools-example-app/" target="_blank">Hello Twitter example app</a> - your first twittertools application, step by step (including how to register the app on Twitter)</li>
+	<li><a title="Multi - user app demo" href="http://erikaheidi.com/open-source/twittertools/basic-multi-user-app-demo/" target="_blank">Simple multi-user app demo</a> - a simple example showing how to authenticate users through Twitter</li>
+	<li><a title="On the playground area you can see return data from the most common methods" href="http://erikaheidi.com/os/Twittertools/playground.php">Return of the Methods (playground / sandbox)</a> - here you can check the data returned by the most common methods</li>
 </ul>
 
 </body>
