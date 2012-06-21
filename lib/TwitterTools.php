@@ -176,7 +176,7 @@ class TwitterTools{
 		return $retorno;
 	}
 	
-	// retorna 1 se user_a segue user_b
+	// returns 1 if user_a follows user_b
 	function isFollower($user_a,$user_b)
 	{
 		return json_decode($this->makeRequest('http://api.twitter.com/1/friendships/exists.json',array("screen_name_a"=>$user_a,"screen_name_b"=>$user_b)),1);
@@ -271,7 +271,6 @@ class TwitterTools{
 		
 		foreach($ret as $tweet)
 		{
-			//http://api.twitter.com/1/statuses/:id/retweeted_by/ids.format
 			$users = json_decode($this->makeRequest('http://api.twitter.com/1/statuses/'.$tweet['id_str'].'/retweeted_by/ids.json'),1);
 			
 			$result[] = array("tweet"=>$tweet,"retweeted_by"=>$users);
@@ -318,9 +317,10 @@ class TwitterTools{
 	
 	/* public */
 	
-	function getTrending()
+	function getTrending($woeid=1)
 	{
-		return json_decode($this->makeRequest('http://api.twitter.com/1/trends.json'),1);
+		#woeid = yahoo's where on earth ID of the location. default is global = 1
+		return json_decode($this->makeRequest('http://api.twitter.com/1/trends/'.$woeid.'.json'),1);
 	}
 	
 	function search($query,$limit=30)
@@ -350,7 +350,7 @@ class TwitterTools{
 		if(empty($link))
 			return $obj['status_txt'];
 		else
-			return $link;
+			return $longurl;
 			
 	}
 	
