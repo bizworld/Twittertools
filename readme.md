@@ -17,8 +17,8 @@ With Twittertools, you can:
 <p>Check our tutorials and demos to help you get started: <a href="http://erikaheidi.com/open-source/twittertools/">http://erikaheidi.com/open-source/twittertools</a></p>
 <div>
 <ul>
-	<li><a title="First Steps" href="http://erikaheidi.com/open-source/twittertools/first-steps/">First Steps</a></li>
-	<li><a title="Hello Twitter example app" href="http://erikaheidi.com/open-source/twittertools/hello-twitter-a-twittertools-example-app/">Hello Twitter - first example app</a></li>
-	<li><a title="Playground" href="http://erikaheidi.com/os/Twittertools/playground.php">Return Samples</a></li>
+	<li><a title="First Steps" href="http://blog.erikaheidi.com/open-source/twittertools/first-steps/">First Steps</a></li>
+	<li><a title="Hello Twitter example app" href="http://blog.erikaheidi.com/open-source/twittertools/hello-twitter-a-twittertools-example-app/">Hello Twitter - first example app</a></li>
+	<li><a title="Playground" href="blog.http://erikaheidi.com/os/Twittertools/playground.php">Return Samples</a></li>
 </ul>
 </div>
