@@ -3,6 +3,9 @@
 TwitterTools is an Open Source PHP Lib created to help developers build Twitter applications easily. You don't have to worry about all that complex authentication flow; let us do it for you.
 From simple robot-like apps (like Zoltar's Oracle example app) to complex monitoring and statistics tools (like TweetAuditor), TwitterTools does the job.
 
+<h3>Important Notice</h3>
+I'm currently working in a major update for Twittertools to be totally compliant with PSR standards. Still don't have an ETA but it will be released as soon as possible.
+
 With Twittertools, you can:
 <ul>
 	<li>Auth a Twitter user and get his access tokens</li>
