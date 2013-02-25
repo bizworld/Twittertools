@@ -1,3 +1,14 @@
+<?php 
+require '../autoload.php';
+
+$tw = new \TwitterTools\TwitterTools('g2pV3ooY0pn7rlEW6E3vXQ','8SLNQF8xHnDnLun1QauNaBhtvqKt41anLImloyV6Q');
+
+if(!$tw->getState()) {
+    echo "auth url: ";
+    echo $tw->getAuthorizeUrl();
+}
+?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
